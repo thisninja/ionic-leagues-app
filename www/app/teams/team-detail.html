@@ -1,5 +1,41 @@
-<ion-view ng-controller="TeamDetailCtrl">
+<ion-view title="{{teamName}}" ng-controller="TeamDetailCtrl">
   <ion-content class="has-header">
-    <h1>Team Detail</h1>
+  	<div class="card">
+  		<div class="item">
+ 			<h2>Record: {{teamStanding.wins}} - {{teamStanding.losses}}</h2>
+		</div> 
+ 		<div class="item item-toggle">
+ 			<h2>{{following ? 'Following': 'Not following'}}</h2>
+	 		<label class="toggle">
+	 			<input type="checkbox" ng-model="following">
+	 			<div class="track">
+	 				<div class="handle"></div>
+	 			</div>
+	 		</label>
+ 		</div>
+  	</div>
+    <div class="list">
+    	<a ui-sref="app.game({id: game.gameId})" class="item item-icon-right" ng-repeat="game in games">
+    		<div class="row">
+    			<div class="col-20">
+    				<p>{{game.time | date: 'M/d/yy'}}</p>
+    				<p>{{game.time | date: 'shortTime'}}</p>
+    			</div>
+    			<div class="col col-center">
+    				<p>
+    					<h3>{{game.homeAway}} {{game.opponent}}</h3>
+    					<p>{{game.location}}</p>
+    				</p>
+    			</div>
+    			<div class="col-20 col-center">
+    				<h4 class="positive">
+    					{{game.scoreDisplay}}
+    				</h4>
+    			</div>
+    		</div>
+
+    		<i class="icon ion-chevron-right icon-accessory"></i>
+    	</a>
+    </div>
   </ion-content>
 </ion-view>
