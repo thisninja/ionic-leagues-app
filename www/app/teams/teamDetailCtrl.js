@@ -1,19 +1,22 @@
 (function () {
     'use strict';
 
-    angular.module('eliteApp').controller('TeamDetailCtrl', ['$scope', '$stateParams', 'eliteApi', function($scope, $stateParams, eliteApi) {
+    angular.module('eliteApp').controller('TeamDetailCtrl', ['$scope', '$stateParams', 'eliteApi', 'myTeamsService', function($scope, $stateParams, eliteApi, myTeamsService) {
     	console.log($stateParams);
         $scope.teamId = Number($stateParams.id);
         console.log('teamId: ', $scope.teamId);
-        $scope.data = eliteApi.getLeaguesData();
-        console.log('data.teams: ', $scope.data.teams);
-        $scope.team = _.chain($scope.data.teams)
+        eliteApi.getLeaguesData().then(function(data) {
+
+
+        console.log('data.teams: ', data.teams);
+        $scope.team = _.chain(data.teams)
         	.flatten("divisionTeams")
         		.find({"id": $scope.teamId})
         			.value();
         console.log('team: ', $scope.team);
+        
 		$scope.teamName = $scope.team.name;
-		$scope.games = _.chain($scope.data.games)
+		$scope.games = _.chain(data.games)
 			.filter(isTeamInGame)
 				.map(function(item) {
 					var isTeam1 = (item.team1Id === $scope.teamId)? true: false;
@@ -30,10 +33,12 @@
 					};
 				})
 					.value();
-		$scope.teamStanding = _.chain($scope.data.standings)
+		$scope.teamStanding = _.chain(data.standings)
 			.flatten("divisionStandings")
 				.find({"teamId": $scope.teamId})
-					.value();
+					.value(); 
+		});
+		$scope.following = myTeamsService.isFollowedTeam($scope.teamId.toString());
 		console.log('games: ', $scope.games);
 		function isTeamInGame(item) {
 			return item.team1Id === $scope.teamId || item.team2Id === $scope.teamId;
