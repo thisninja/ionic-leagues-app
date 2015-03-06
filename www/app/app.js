@@ -11,8 +11,8 @@ angular.module("eliteApp", ["ionic", "angular-data.DSCacheFactory", "google-maps
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    DSCacheFactory('leagueDataCache', {storageMode: 'localStorage', maxAge: 30000, deleteOnExpire: 'aggressive'});
-    DSCacheFactory('leaguesCache', {storageMode: 'localStorage', maxAge: 30000, deleteOnExpire: 'aggressive'});
+    DSCacheFactory('leagueDataCache', {storageMode: 'localStorage', maxAge: 720000, deleteOnExpire: 'aggressive'});
+    DSCacheFactory('leaguesCache', {storageMode: 'localStorage', maxAge: 720000, deleteOnExpire: 'aggressive'});
     DSCacheFactory('myTeamsCache', {storageMode: 'localStorage'});
     DSCacheFactory('staticCache', {storageMode:  'localStorage'});
   });
