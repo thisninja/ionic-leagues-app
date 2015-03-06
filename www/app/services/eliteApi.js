@@ -50,10 +50,15 @@
         	}
             return deffered.promise; 
         };
-        function getLeaguesData() {
+        function getLeaguesData(forceRefresh) {
+        	if(typeof forceRefresh === "undefined") {forceRefresh = false};
+
         	var deffered = $q.defer(),
         	cacheKey = 'leagueData-' + getLeagueId(),
-        	leagueData = self.leagueDataCache.get(cacheKey);
+        	leagueData = null;
+        	if(!forceRefresh) {
+        		leagueData = self.leagueDataCache.get(cacheKey);
+        	}
         	if(leagueData) {
         		console.log('The data was found inside cache ', leagueData);
         		deffered.resolve(leagueData); 

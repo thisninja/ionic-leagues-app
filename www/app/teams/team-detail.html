@@ -7,7 +7,7 @@
  		<div class="item item-toggle">
  			<h2>{{following ? 'Following': 'Not following'}}</h2>
 	 		<label class="toggle">
-	 			<input type="checkbox" ng-model="following">
+	 			<input type="checkbox" ng-model="following" ng-change="toggleFollow()" ng-checked="following">
 	 			<div class="track">
 	 				<div class="handle"></div>
 	 			</div>
